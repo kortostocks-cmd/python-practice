@@ -35,7 +35,7 @@ while True:
         password = input("Nueva contraseña: ")
         
         if user in usuarios:
-            print("⚠️ Ya existe")
+            print(" Ya existe")
         else:
             password = input("Nueva contraseña: ")
             usuarios[user] = password
