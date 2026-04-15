@@ -1,4 +1,8 @@
 import json
+import hashlib
+
+def hash_password(password): #funcion para encriptar password
+    return hashlib.sha256(password.encode()).hexdigest()#como quieres que lo encripte
 
 try:
     with open("usuarios.json", "r") as f:
@@ -16,9 +20,10 @@ while True:
     if opcion == "1":
         user = input("Usuario: ")
         password = input("Contraseña: ")
-
+        password_hash = hash_password(password)
+        
         if user in usuarios:
-            if usuarios[user] == password:
+            if usuarios[user] == password_hash:
                 print("Login correcto")
             else:
                 print("contraseña incorrecta")
@@ -32,9 +37,10 @@ while True:
             print("Ya existe")
         else:
             password = input("Nueva contraseña: ")
-            usuarios[user] = password
+            password_hash = hash_password(password)
+            usuarios[user] = password_hash
 
-            with open("usuarios2.json", "w") as f:
+            with open("usuarios.json", "w") as f:
                 json.dump(usuarios, f)
 
     elif opcion == "3":
